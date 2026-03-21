@@ -11,9 +11,7 @@ class DrawerWidget extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            width: double.infinity,
             height: 170,
-            padding: const EdgeInsets.fromLTRB(16, 26, 16, 16),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topLeft,

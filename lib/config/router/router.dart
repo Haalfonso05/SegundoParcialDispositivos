@@ -7,13 +7,13 @@ import 'router_model.dart';
 
 List<RouterModel> appRoutes = [
   RouterModel(
-    name: 'Home',
+    name: 'Inicio',
     description: 'Pantalla principal',
     path: '/',
     widget: (context, state) => const HomeScreen(),
   ),
   RouterModel(
-    name: 'Product',
+    name: 'Producto',
     description: 'Pantalla de productos',
     path: '/product',
     widget: (context, state) => const ProductScreen(),

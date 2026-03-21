@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../widgets/layout/drawer_widget.dart';
 
 class Layout extends StatelessWidget {
