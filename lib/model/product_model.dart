@@ -52,20 +52,20 @@ class ProductModel {
       if (jpg is Map<String, dynamic>) {
         final image = (jpg['large_image_url'] as String?)?.trim() ??
             (jpg['image_url'] as String?)?.trim();
-        if (image != null && image.isNotEmpty) return _normalizeImageUrl(image);
+        if (image != null && image.isNotEmpty) return normalizeImageUrl(image);
       }
 
       if (webp is Map<String, dynamic>) {
         final image = (webp['large_image_url'] as String?)?.trim() ??
             (webp['image_url'] as String?)?.trim();
-        if (image != null && image.isNotEmpty) return _normalizeImageUrl(image);
+        if (image != null && image.isNotEmpty) return normalizeImageUrl(image);
       }
     }
 
     return '';
   }
 
-  static String _normalizeImageUrl(String image) {
+  static String normalizeImageUrl(String image) {
     final uri = Uri.tryParse(image);
     if (uri == null) return image;
 

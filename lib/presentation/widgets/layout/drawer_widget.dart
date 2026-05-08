@@ -1,72 +1,114 @@
-import 'package:parcial_flutter/config/router/router.dart';
-import 'package:parcial_flutter/presentation/widgets/list/list_custom_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../config/app_notifiers.dart';
+import '../../../config/app_translations.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        children: [
-          Container(
-            height: 170,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xFF0B1E4A), Color(0xFF1D2F6F)],
+    return ValueListenableBuilder<Locale>(
+      valueListenable: localeNotifier,
+      builder: (context, _, _) {
+        final location = GoRouterState.of(context).uri.path;
+        return Drawer(
+          child: Column(
+            children: [
+              _buildHeader(context),
+              const Divider(height: 1),
+              _buildMenuItem(
+                context,
+                icon: Icons.inventory_2_outlined,
+                label: tr('drawer_products'),
+                selected: location == '/products',
+                onTap: () => context.go('/products'),
+              ),
+              _buildMenuItem(
+                context,
+                icon: Icons.person_outline,
+                label: tr('drawer_profile'),
+                selected: location == '/profile',
+                onTap: () => context.push('/profile'),
+              ),
+              const Spacer(),
+              const Divider(height: 1),
+              _buildMenuItem(
+                context,
+                icon: Icons.logout,
+                label: tr('logout'),
+                color: Colors.redAccent,
+                onTap: () => context.go('/login'),
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildHeader(BuildContext context) {
+    return SafeArea(
+      bottom: false,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              radius: 34,
+              backgroundColor:
+                  Theme.of(context).colorScheme.primaryContainer,
+              child: Icon(
+                Icons.person,
+                size: 38,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
               ),
             ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                CircleAvatar(
-                  radius: 24,
-                  backgroundColor: Colors.white24,
-                  child: Icon(
-                    Icons.person_outline,
-                    color: Colors.white,
-                    size: 28,
+            const SizedBox(height: 14),
+            Text(
+              '0192257 - Hector Augusto Alfonso Castilla',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
                   ),
-                ),
-                const SizedBox(width: 12),
-                const Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Spike Jose',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    SizedBox(height: 2),
-                    Text(
-                      'Ingeniero de sistemas',
-                      style: TextStyle(color: Colors.white70),
-                    ),
-                  ],
-                ),
-              ],
             ),
-          ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: appRoutes.length,
-              itemBuilder: (context, index) {
-                return ListCustomWidget(
-                  routerModel: appRoutes[index],
-                  drawer: true,
-                );
-              },
+            const SizedBox(height: 4),
+            Text(
+              '0192261 - Cristian Albeiro Romero Rincon',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w700,
+                  ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget _buildMenuItem(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+    Color? color,
+    bool selected = false,
+  }) {
+    final effectiveColor = color ??
+        (selected
+            ? const Color(0xFF1E3A8A)
+            : Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.75));
+    return ListTile(
+      leading: Icon(icon, color: effectiveColor),
+      title: Text(
+        label,
+        style: TextStyle(color: effectiveColor, fontWeight: FontWeight.w500),
+      ),
+      onTap: () {
+        Navigator.of(context).pop();
+        onTap();
+      },
     );
   }
 }

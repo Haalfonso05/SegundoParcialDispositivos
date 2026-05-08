@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "parcial_flutter" "\0"
+            VALUE "FileDescription", "Segundo Parcial Flutter" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "parcial_flutter" "\0"
+            VALUE "InternalName", "Segundo Parcial Flutter" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2026 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "parcial_flutter.exe" "\0"
-            VALUE "ProductName", "parcial_flutter" "\0"
+            VALUE "OriginalFilename", "Segundo Parcial Flutter.exe" "\0"
+            VALUE "ProductName", "Segundo Parcial Flutter" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
